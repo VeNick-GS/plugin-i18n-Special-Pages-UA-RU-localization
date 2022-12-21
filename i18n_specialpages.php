@@ -1,6 +1,5 @@
 <?php
 /*
-g
 Plugin Name: I18N Special Pages
 Description: Define, edit and display customized special pages (I18N enabled!)
 Version: 1.3.5
