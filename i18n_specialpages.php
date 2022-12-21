@@ -6,7 +6,7 @@ Version: 1.3.5
 Author: Martin Vlcek
 Author URI: http://mvlcek.bplaced.net
 
-This plugin should work by itself, but for an optimum experience you should also install
+This plugin should work by itself, but for an optimum experience you should also install:
  - I18N
  - I18N Search
  - Theme Highlighter
