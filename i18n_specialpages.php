@@ -6,7 +6,7 @@ Version: 1.3.5
 Author: Martin Vlcek
 Author URI: http://mvlcek.bplaced.net
 
-This plugin should work by itself, but for an optimum experience you should also install:
+This plugin should work by itself, but for an optimum experience you should also install
  - I18N
  - I18N Search
  - Theme Highlighter
@@ -75,14 +75,14 @@ if (basename($_SERVER['PHP_SELF']) && basename($_SERVER['PHP_SELF']) != 'index.p
   # back end
   i18n_merge('i18n_specialpages', substr($LANG,0,2));
   i18n_merge('i18n_specialpages', 'en');
-  add_action('pages-sidebar', 'i18n_specialpages_sidebar_item', array($thisfile, i18n_r('i18n_specialpages/PAGES'), 'pages'));
-  add_action('pages-sidebar', 'i18n_specialpages_sidebar_item', array($thisfile, i18n_r('i18n_specialpages/CREATE_PAGE'), 'create'));
-  add_action('plugins-sidebar', 'i18n_specialpages_sidebar_item', array($thisfile, i18n_r('i18n_specialpages/CONFIGURE'), 'config'));
+  add_action('pages-sidebar', 'i18n_specialpages_sidebar_item', [$thisfile, i18n_r('i18n_specialpages/PAGES'), 'pages']);
+  add_action('pages-sidebar', 'i18n_specialpages_sidebar_item', [$thisfile, i18n_r('i18n_specialpages/CREATE_PAGE'), 'create']);
+  add_action('plugins-sidebar', 'i18n_specialpages_sidebar_item', [$thisfile, i18n_r('i18n_specialpages/CONFIGURE'), 'config']);
   add_action('edit-extras', 'i18n_specialpages_edit');         // add hook to create new inputs on the edit screen.
   add_action('changedata-save', 'i18n_specialpages_save');     // add hook to save custom field values 
   //add_action('admin-pre-header', 'i18n_specialpages_redirect', array(false)); 
   //add_action('header', 'i18n_specialpages_redirect', array(true)); 
-  add_action('header', 'i18n_specialpages_header', array(true)); 
+  add_action('header', 'i18n_specialpages_header', [true]); 
   
   if (i18n_specialpages_gsversion() == '3.0') {
     // workaround for GetSimple 3.0:
@@ -147,10 +147,10 @@ function i18n_specialpages_search_index($item) {
           $item->addContent($name, html_entity_decode(strip_tags($item->$name), ENT_QUOTES, 'UTF-8'));
         } else if (@$field['type'] == 'checkbox') {
           if ($item->$name) {
-            $item->addTags($name, array($name));
+            $item->addTags($name, [$name]);
           }
         } else if ((string) $field['index'] == '2') {
-          $item->addTags($name, array(html_entity_decode($item->$name, ENT_QUOTES, 'UTF-8')));
+          $item->addTags($name, [html_entity_decode($item->$name, ENT_QUOTES, 'UTF-8')]);
         } else {
           $item->addContent($name, html_entity_decode($item->$name, ENT_QUOTES, 'UTF-8'));
         }
