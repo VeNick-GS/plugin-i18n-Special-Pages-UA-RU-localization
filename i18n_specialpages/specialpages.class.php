@@ -257,7 +257,9 @@ class I18nSpecialPages {
   }
   
   private static function getFields($data) {
-    $stdfields = ['pubDate', 'title', 'url', 'meta', 'metad', 'menu', 'menuStatus', 'menuOrder', 'template', 'parent', 'content', 'private', 'user', 'creDate', 'tags', 'pubTime', 'creTime'];
+    $stdfields = ['pubDate', 'title', 'url', 'meta', 'metad', 'menu', 'menuStatus', 'menuOrder', 
+    		'template', 'parent', 'content', 'private', 'user', 'creDate', 
+		'tags', 'pubTime', 'creTime'];
     if ($data) {
       $fields = [];
       $fields['url'] = $fields['slug'] = (string) $data->url;

@@ -87,6 +87,7 @@ $i18n = [
     'VIEW_TITLE' => "nach Titel",
     'WYSIWYG_EDITOR' => "WYSIWYG-Editor",
     'INDEX_AS_TAG' => "als Schlüsselwort",
+    'INDEX_AS_TAGS' => "as tags (comma separated)",
     'INDEX_NAME_AS_TAG' => "Name as Schlüsselwort",
     'INDEX_WORDS' => "Wörter"
 ];

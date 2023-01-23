@@ -3,6 +3,7 @@
   class I18nSpecialPagesEditor {
     
     public static function stripSlashes() {
+    
          foreach ($_GET as $key => $value) $_GET[$key] = stripslashes($value);
         foreach ($_POST as $key => $value) $_POST[$key] = stripslashes($value);
       
@@ -23,7 +24,9 @@
       if (@$_POST['post-menu'] && $_POST['post-menu'] != '0' && !@$_POST['post-parent']) {
         $msgs[] = i18n_r('i18n_specialpages/ERR_MISSING_PARENT');
       }
-      $stdfields = ['pubDate', 'title', 'url', 'meta', 'metad', 'menu', 'menuStatus', 'menuOrder', 'template', 'parent', 'content', 'private', 'creDate', 'user', 'special', 'tags', 'creTime', 'pubTime'];
+      $stdfields = ['pubDate', 'title', 'url', 'meta', 'metad', 'menu', 'menuStatus', 'menuOrder', 
+      		'template', 'parent', 'content', 'private', 'creDate', 'user', 'special', 
+		'tags', 'creTime', 'pubTime'];
       $emptyname = false;
       $emptylabel = false;
       $invalidname = false;
@@ -104,8 +107,9 @@
               $item->addChild('option')->addCData($option);
             } 
           }
-          if (@$_POST['cf_'.$i.'_index'] == '1' || @$_POST['cf_'.$i.'_index'] == '2' || @$_POST['cf_'.$i.'_index'] == '3') {
-            $item->addChild('index', $_POST['cf_'.$i.'_index']);
+          $index = @$_POST['cf_'.$i.'_index'];
+          if ($index == '1' || $index == '2' || $index == '3' || $index == '4') {
+            $item->addChild('index', $index);
           }
         }
       }
@@ -270,14 +274,12 @@
     <table id="editsp" class="edittable highlight">
       <tr>
         <td><label for="post-name"><?php i18n('i18n_specialpages/NAME'); ?></label></td>
-        <td><input type="text" class="text" style="width:240px" id="post-name" name="post-name"
-         value="<?php if(isset($def['name'])){echo htmlspecialchars(@$def['name']);} ?>" /></td> 
+        <td><input type="text" class="text" style="width:240px" id="post-name" name="post-name" value="<?php if(isset($def['name'])){echo htmlspecialchars(@$def['name']);} ?>" /></td> 
         <td><?php i18n('i18n_specialpages/NAME_DESCR'); ?></td>
       </tr>
       <tr>
         <td><label for="post-slug"><?php i18n('SLUG_URL'); ?></label></td>
-        <td><input type="text" class="text" style="width:240px" id="post-slug" name="post-slug"
-         value="<?php if(isset($def['slug'])){echo htmlspecialchars(@$def['slug']);}; ?>" /></td> 
+        <td><input type="text" class="text" style="width:240px" id="post-slug" name="post-slug" value="<?php if(isset($def['slug'])){echo htmlspecialchars(@$def['slug']);}; ?>" /></td> 
         <td><?php i18n('i18n_specialpages/SLUG_URL_DESCR'); ?></td>
       </tr>
       <tr>
@@ -294,8 +296,7 @@
       </tr>
       <tr>
         <td><label for="post-tags"><?php i18n('TAG_KEYWORDS'); ?></label></td>
-        <td><input type="text" class="text" style="width:240px" id="post-tags" name="post-tags"
-         value="<?php if(isset($def['tags'])){echo htmlspecialchars(@$def['tags']);} ;?>" /></td> 
+        <td><input type="text" class="text" style="width:240px" id="post-tags" name="post-tags" value="<?php if(isset($def['tags'])){echo htmlspecialchars(@$def['tags']);} ;?>" /></td> 
         <td><?php i18n('i18n_specialpages/TAG_KEYWORDS_DESCR'); ?></td>
       </tr>
       <tr>
@@ -362,8 +363,7 @@
       </tbody>
     </table>
     <p>
-      <input type="hidden" id="post-defaultcontent" name="post-defaultcontent" 
-      value="<?php if($def['defaultcontent']!==''){echo htmlspecialchars($def['defaultcontent']);}; ?>" />
+      <input type="hidden" id="post-defaultcontent" name="post-defaultcontent" value="<?php if($def['defaultcontent']!==''){echo htmlspecialchars($def['defaultcontent']);}; ?>" />
       <a class="setcontent" href="#"><?php i18n('i18n_specialpages/SET_DEFAULT_CONTENT'); ?></a>
     </p>
     <div id="ed_textarea" class="dialog" style="display:none">
@@ -383,8 +383,7 @@
     <p><?php i18n('i18n_specialpages/CONFIG_EDIT_VIEW_DESCR'); ?></p>
     <div class="compdiv">
       <label for="post-headercomponent"><?php i18n('i18n_specialpages/HEADERCOMPONENT'); ?></label>
-      <textarea id="post-headercomponent" name="post-headercomponent" style="height:200px;">
-      <?php echo htmlspecialchars($def['headercomponent'] ?? '') ;?></textarea>
+      <textarea id="post-headercomponent" name="post-headercomponent" style="height:200px;"><?php echo htmlspecialchars($def['headercomponent'] ?? '') ;?></textarea>
     </div>
     <div class="compdiv i18n-sp-comp">
       <?php if ($isi18n && $languages) { ?>
@@ -397,8 +396,7 @@
       <?php } ?>
       <label for="post-showcomponent"><?php i18n('i18n_specialpages/SHOWCOMPONENT'); ?></label>
       <div class="i18n-sp-wrapper" id="showcomponent" style="clear:both;">
-        <textarea id="post-showcomponent" name="post-showcomponent" style="height:200px"><?php 
-        echo htmlspecialchars($def['showcomponent']?? ''); ?></textarea>
+        <textarea id="post-showcomponent" name="post-showcomponent" style="height:200px"><?php echo htmlspecialchars($def['showcomponent']?? ''); ?></textarea>
       </div>
       <?php if ($isi18n && $languages) foreach ($languages as $lang) { ?>
       <div class="i18n-sp-wrapper" id="showcomponent_<?php echo $lang; ?>" style="clear:both;display:none">
@@ -422,8 +420,7 @@
       <?php } ?>
       <label for="post-searchcomponent"><?php i18n('i18n_specialpages/SEARCHCOMPONENT'); ?></label>
       <div class="i18n-sp-wrapper" id="searchcomponent" style="clear:both;">
-        <textarea id="post-searchcomponent" name="post-searchcomponent" 
-        style="height:200px"><?php echo htmlspecialchars(@$def['searchcomponent']?? ''); ?></textarea>
+        <textarea id="post-searchcomponent" name="post-searchcomponent" style="height:200px"><?php echo htmlspecialchars(@$def['searchcomponent']?? ''); ?></textarea>
       </div>
       <?php if ($isi18n && $languages) foreach ($languages as $lang) { ?>
       <div class="i18n-sp-wrapper" id="searchcomponent_<?php echo $lang; ?>" style="clear:both;display:none">
@@ -477,18 +474,21 @@
         $index.find('[value=1]').show();
         $index.find('[value=2]').show();
         $index.find('[value=3]').hide();
+        $index.find('[value=4]').show();
         if ($index.val() == 3) $index.val('');
       } else if (val == 'textfull' || val == 'textarea' || val == 'wysiwyg') {
         $index.show();
         $index.find('[value=1]').show();
         $index.find('[value=2]').hide();
         $index.find('[value=3]').hide();
+        $index.find('[value=4]').hide();
         if ($index.val() != 1) $index.val('');
 			} else if (val == 'checkbox') {
         $index.show();
         $index.find('[value=1]').hide();
         $index.find('[value=2]').hide();
         $index.find('[value=3]').show();
+        $index.find('[value=4]').hide();
         if ($index.val() != 3) $index.val('');
 			} else {
         $index.val('').hide();
@@ -587,10 +587,8 @@ function i18n_specialpages_confline($i, $def, $class='', $issearch='') {
   if (substr($options,0,2) == "\r\n") $options = "\r\n".$options; // textarea removes first line break!
 ?>
       <tr class="<?php echo $class; ?>">
-        <td><input type="text" class="text" style="width:80px;padding:2px;"
-         name="cf_<?php echo $i; ?>_name" value="<?php if(isset($def['name'])){echo htmlspecialchars(@$def['name']); };?>"/></td>
-        <td><input type="text" class="text" style="width:140px;padding:2px;" name="cf_<?php echo $i; ?>_label" 
-        value="<?php if(isset($def['label'])){echo htmlspecialchars(@$def['label']);}; ?>"/></td>
+        <td><input type="text" class="text" style="width:80px;padding:2px;" name="cf_<?php echo $i; ?>_name" value="<?php if(isset($def['name'])){echo htmlspecialchars(@$def['name']); };?>"/></td>
+        <td><input type="text" class="text" style="width:140px;padding:2px;" name="cf_<?php echo $i; ?>_label" value="<?php if(isset($def['label'])){echo htmlspecialchars(@$def['label']);}; ?>"/></td>
         <td>
           <select name="cf_<?php echo $i; ?>_type" class="text short" style="width:160px;padding:2px;" >
             <option value="text" <?php echo @$def['type']=='text' ? 'selected="selected"' : ''; ?> ><?php i18n('i18n_specialpages/TEXT_FIELD'); ?></option>
@@ -616,6 +614,7 @@ function i18n_specialpages_confline($i, $def, $class='', $issearch='') {
             <option value="1" <?php if ((string) @$def['index'] == '1') echo 'selected="selected"'; ?> <?php if (@$def['type']=='checkbox') echo 'style="display:none"'; ?> ><?php i18n('i18n_specialpages/INDEX_WORDS'); ?></option>
             <option value="2" <?php if ((string) @$def['index'] == '2') echo 'selected="selected"'; ?> <?php if (@$def['type']!='text' && @$def['type']!='dropdown') echo 'style="display:none"'; ?> ><?php i18n('i18n_specialpages/INDEX_AS_TAG'); ?></option>
             <option value="3" <?php if ((string) @$def['index'] == '3') echo 'selected="selected"'; ?> <?php if (@$def['type']!='checkbox') echo 'style="display:none"'; ?> ><?php i18n('i18n_specialpages/INDEX_NAME_AS_TAG'); ?></option>
+            <option value="4" <?php if ((string) @$def['index'] == '4') echo 'selected="selected"'; ?> <?php if (@$def['type']!='text' && @$def['type']!='dropdown') echo 'style="display:none"'; ?> ><?php i18n('i18n_specialpages/INDEX_AS_TAGS'); ?></option>
           </select>
         </td>
 <?php } ?>

@@ -2,7 +2,7 @@
 /*
 Plugin Name: I18N Special Pages
 Description: Define, edit and display customized special pages (I18N enabled!)
-Version: 1.3.5
+Version: 1.4.0
 Author: Martin Vlcek
 Author URI: http://mvlcek.bplaced.net
 
@@ -63,7 +63,7 @@ if (basename($_SERVER['PHP_SELF']) == 'load.php' && @$_GET['id'] == 'i18n_specia
 register_plugin(
   $thisfile, 
   'I18N Special Pages',  
-  '1.3.5',    
+  '1.4.0',    
   'Martin Vlcek',
   'http://mvlcek.bplaced.net', 
   'Define special (custom) fields for page categories and provide customized editing and displaying (I18N enabled)',
@@ -150,7 +150,15 @@ function i18n_specialpages_search_index($item) {
             $item->addTags($name, [$name]);
           }
         } else if ((string) $field['index'] == '2') {
-          $item->addTags($name, [html_entity_decode($item->$name, ENT_QUOTES, 'UTF-8')]);
+        	$tag = trim(html_entity_decode($item->$name, ENT_QUOTES, 'UTF-8'));
+        	if ($tag) {
+        		$item->addTags($name, array($tag));
+        	}
+        } else if ((string) $field['index'] == '4') {
+        	$tags = preg_split("/\s*,\s*/", trim(html_entity_decode($item->$name, ENT_QUOTES, 'UTF-8')), -1, PREG_SPLIT_NO_EMPTY);
+        	if ($tags) {
+	        	$item->addTags($name, $tags);
+        	}
         } else {
           $item->addContent($name, html_entity_decode($item->$name, ENT_QUOTES, 'UTF-8'));
         }

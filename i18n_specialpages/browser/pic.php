@@ -73,9 +73,6 @@ if (!$maxWidth && !$maxHeight) {
   readfile($thumbdir.$outfile);
 } 
 
-/**
- * @return never
- */
 function error404() {
   header('HTTP/1.1 404 Not Found');
   header('Content-Type: text/plain');
