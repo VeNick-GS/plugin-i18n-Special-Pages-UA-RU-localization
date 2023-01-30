@@ -1,5 +1,5 @@
 <?php
-$i18n = [
+$i18n = array(
     'ADD_FIELD' => "Tilføj nyt felt",
     'ADD_PAGETYPE' => "Opret ny specialside",
     'BROWSE_FILES' => "Gennemse",
@@ -41,7 +41,6 @@ $i18n = [
     'FIELD_LABEL' => "Etiket",
     'FIELD_NAME' => "Navn",
     'FIELD_TYPE' => "Art",
-    'FILE' => "File",
     'FILTER' => "Filter",
     'FILTER_TITLE' => "Indtast del af titel, etiket og/eller nøgleord",
     'HEADERCOMPONENT' => "HTML/PHP-kode til sidehoved",
@@ -86,8 +85,4 @@ $i18n = [
     'VIEW_PUBDATE' => "efter dato",
     'VIEW_TITLE' => "efter titel",
     'WYSIWYG_EDITOR' => "WYSIWYG-editor"
-    'INDEX_AS_TAG' => "as tag",
-    'INDEX_AS_TAGS' => "as tags (comma separated)",
-    'INDEX_NAME_AS_TAG' => "name as tag",
-    'INDEX_WORDS' => "words"
-];
+);

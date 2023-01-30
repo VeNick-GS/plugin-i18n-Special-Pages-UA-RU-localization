@@ -11,7 +11,7 @@ class I18nSpecialPages {
     if ($name && self::$settings && isset(self::$settings[$name])) {
       // nothing to do - settings already loaded
     } else if (!self::$settings || !self::$complete) {
-      if (!self::$settings) self::$settings = [];
+      if (!self::$settings) self::$settings = array();
       self::$complete = true;
       if ($dh = opendir(GSDATAOTHERPATH)) {
         while ($filename = readdir($dh)) {
@@ -39,7 +39,7 @@ class I18nSpecialPages {
     if (substr($dir,-1) != '/') $dir .= '/';
     $data = getXML($dir.$filename);
     $n = substr($filename,13,strlen($filename)-17);
-    $sp = [];
+    $sp = array();
     $sp['name'] = $n;
     $sp['title'] = (string) $data->title;
     $sp['parent'] = (string) $data->parent;
@@ -58,13 +58,13 @@ class I18nSpecialPages {
     $items = $data->fields->item;
     if (count($items) > 0) {
       foreach ($items as $item) {
-        $sf = [];
+        $sf = array();
         $sf['name'] = (string) $item->name;
         $sf['label'] = (string) $item->label;
         $sf['type'] = (string) $item->type;
         $sf['value'] = (string) $item->value;
         if ($item->type == "dropdown") {
-          $sf['options'] = [];
+          $sf['options'] = array();
           foreach ($item->option as $option) {
             $sf['options'][] = (string) $option;
           }
@@ -136,7 +136,7 @@ class I18nSpecialPages {
     }
     $date = @self::getField($name);
     if ($date && !is_numeric($date)) $date = strtotime($date); else $date = (int) $date;
-    return $date ? date($format, $date) : null;
+    return $date ? strftime($format, $date) : null;
   }
   
   public static function outputDate($name, $format=null) {
@@ -257,11 +257,11 @@ class I18nSpecialPages {
   }
   
   private static function getFields($data) {
-    $stdfields = ['pubDate', 'title', 'url', 'meta', 'metad', 'menu', 'menuStatus', 'menuOrder', 
-    		'template', 'parent', 'content', 'private', 'user', 'creDate', 
-		'tags', 'pubTime', 'creTime'];
+    $stdfields = array('pubDate','title','url','meta','metad','menu','menuStatus','menuOrder',
+                        'template','parent','content','private','user','creDate',
+                        'tags','pubTime','creTime');
     if ($data) {
-      $fields = [];
+      $fields = array();
       $fields['url'] = $fields['slug'] = (string) $data->url;
       $fields['title'] = html_entity_decode(stripslashes((string) $data->title), ENT_QUOTES, 'UTF-8');
       $fields['content'] = html_entity_decode(stripslashes((string) $data->content), ENT_QUOTES, 'UTF-8');

@@ -1,7 +1,7 @@
 <?php
   $settings = i18n_specialpages_settings();
   $settings = subval_sort($settings,'title');
-  if (!$settings) $settings = [];
+  if (!$settings) $settings = array();
 ?>
   <h3><?php i18n('i18n_specialpages/CREATE_PAGE_TITLE'); ?></h3>
   <p><?php i18n('i18n_specialpages/CREATE_PAGE_DESCR'); ?></p>

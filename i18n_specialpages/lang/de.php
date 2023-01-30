@@ -1,5 +1,5 @@
 <?php
-$i18n = [
+$i18n = array(
     'ADD_FIELD' => "Neues Feld hinzufügen",
     'ADD_PAGETYPE' => "Neuen Spezialseitentyp erstellen",
     'BROWSE_FILES' => "Durchsuchen",
@@ -87,7 +87,7 @@ $i18n = [
     'VIEW_TITLE' => "nach Titel",
     'WYSIWYG_EDITOR' => "WYSIWYG-Editor",
     'INDEX_AS_TAG' => "als Schlüsselwort",
-    'INDEX_AS_TAGS' => "as tags (comma separated)",
+    'INDEX_AS_TAGS' => "als Schlüsselwörter (durch Komma getrennt)",
     'INDEX_NAME_AS_TAG' => "Name as Schlüsselwort",
     'INDEX_WORDS' => "Wörter"
-];
+);

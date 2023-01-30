@@ -1,5 +1,5 @@
 <?php
-$i18n = [
+$i18n = array(
     'ADD_FIELD' => "Добавить новое поле",
     'ADD_PAGETYPE' => "Добавить новый тип страниц",
     'BROWSE_FILES' => "Выбрать",
@@ -86,8 +86,4 @@ $i18n = [
     'VIEW_PUBDATE' => "по дате",
     'VIEW_TITLE' => "по заголовку",
     'WYSIWYG_EDITOR' => "WYSIWYG редактор"
-    'INDEX_AS_TAG' => "as tag",
-    'INDEX_AS_TAGS' => "as tags (comma separated)",
-    'INDEX_NAME_AS_TAG' => "name as tag",
-    'INDEX_WORDS' => "words"
-];
+);

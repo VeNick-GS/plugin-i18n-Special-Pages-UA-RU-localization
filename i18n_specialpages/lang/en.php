@@ -1,5 +1,5 @@
 <?php
-$i18n = [
+$i18n = array(
     'ADD_FIELD' => "Add new field",
     'ADD_PAGETYPE' => "Create a new special page type",
     'BROWSE_FILES' => "Browse",
@@ -90,4 +90,4 @@ $i18n = [
     'INDEX_AS_TAGS' => "as tags (comma separated)",
     'INDEX_NAME_AS_TAG' => "name as tag",
     'INDEX_WORDS' => "words"
-];
+);

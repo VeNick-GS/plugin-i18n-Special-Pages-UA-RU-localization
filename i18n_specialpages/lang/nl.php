@@ -1,5 +1,5 @@
 <?php
-$i18n = [
+$i18n = array(
     'ADD_FIELD' => "Nieuw veld toevoegen",
     'ADD_PAGETYPE' => "Nieuw Speciaal Pagina type aanmaken",
     'BROWSE_FILES' => "Bladeren",
@@ -41,7 +41,6 @@ $i18n = [
     'FIELD_LABEL' => "Label",
     'FIELD_NAME' => "Naam",
     'FIELD_TYPE' => "Type",
-    'FILE' => "File",
     'FILTER' => "Filter",
     'FILTER_TITLE' => "Vul een deel van een titel in of : en een tag/sleutelwoord",
     'HEADERCOMPONENT' => "HTML/PHP code voor de kop van de pagina",
@@ -86,8 +85,4 @@ $i18n = [
     'VIEW_PUBDATE' => "op datum",
     'VIEW_TITLE' => "op titel",
     'WYSIWYG_EDITOR' => "WYSIWYG editor"
-    'INDEX_AS_TAG' => "as tag",
-    'INDEX_AS_TAGS' => "as tags (comma separated)",
-    'INDEX_NAME_AS_TAG' => "name as tag",
-    'INDEX_WORDS' => "words"
-];
+);

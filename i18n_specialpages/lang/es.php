@@ -1,5 +1,5 @@
 <?php
-$i18n = [
+$i18n = array(
     'ADD_FIELD' => "Insertar nuevo campo",
     'ADD_PAGETYPE' => "Crear nuevo tipo de página especial",
     'BROWSE_FILES' => "Visualizar",
@@ -86,8 +86,4 @@ $i18n = [
     'VIEW_PUBDATE' => "por fecha",
     'VIEW_TITLE' => "Por título",
     'WYSIWYG_EDITOR' => "Editor visual (WYSIWYG)"
-    'INDEX_AS_TAG' => "as tag",
-    'INDEX_AS_TAGS' => "as tags (comma separated)",
-    'INDEX_NAME_AS_TAG' => "name as tag",
-    'INDEX_WORDS' => "words"
-];
+);

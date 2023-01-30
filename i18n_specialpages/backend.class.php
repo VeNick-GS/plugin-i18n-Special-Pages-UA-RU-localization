@@ -110,7 +110,7 @@ class I18nSpecialPagesBackend {
   }
 
   public static function strip($value) {
-    return $value;
+    return get_magic_quotes_gpc() ? stripslashes($value) : $value;
   }
 
   public static function save(){
@@ -121,7 +121,7 @@ class I18nSpecialPagesBackend {
       $def = I18nSpecialPages::getSettings($name);
       if ($def) {
         // add a special tag (for search)
-        $tags = ['_special_'.$name];
+        $tags = array('_special_'.$name);
         $origtags = preg_split('/\s*,\s*/', trim(self::strip(@$_POST['post-metak'])));
         if (count($origtags) > 0) foreach ($origtags as $tag) {
           if ($tag && substr($tag,0,9) != '_special_') $tags[] = $tag;
@@ -131,7 +131,7 @@ class I18nSpecialPagesBackend {
         // add field to identify special page type
         $xml->addChild('special', htmlspecialchars($name));
         // add special fields:
-        if (count(array($def['fields'])) > 0) foreach ($def['fields'] as $field) {
+        if (count(@$def['fields']) > 0) foreach ($def['fields'] as $field) {
           $name = $field['name'];
           if (isset($_POST['post-sp-'.strtolower($name)])) { 
             $xml->addChild(strtolower($name))->addCData(self::strip($_POST['post-sp-'.strtolower($name)])); 
@@ -155,7 +155,7 @@ class I18nSpecialPagesBackend {
       // modify existing Link dialog
       CKEDITOR.on( 'dialogDefinition', function( ev ) {
         if ((ev.editor != <?php echo $editorvar; ?>) || (ev.data.name != 'link')) return;
-
+    
         // Overrides definition.
         var definition = ev.data.definition;
         definition.onFocus = CKEDITOR.tools.override(definition.onFocus, function(original) {
@@ -166,11 +166,11 @@ class I18nSpecialPagesBackend {
               }
           };
         });
-
+    
         // Overrides linkType definition.
         var infoTab = definition.getContents('info');
         var content = getById(infoTab.elements, 'linkType');
-
+    
         content.items.unshift(['Link to local page', 'localPage']);
         content['default'] = 'localPage';
         infoTab.elements.push({
@@ -231,7 +231,7 @@ class I18nSpecialPagesBackend {
           }
         };
       });
-<?php
+    <?php
   }
   
   public static function outputCKEditorJS($fieldname, $editorvar, $width=730, $height=500) {
@@ -283,13 +283,13 @@ class I18nSpecialPagesBackend {
       $pos = strpos($slug, '_');
       $lang = $pos !== false ? substr($slug, $pos+1) : null;
       $structure = I18nNavigationFrontend::getPageStructure(null, false, null, $lang);
-      $pages = [];
+      $pages = array();
       $nbsp = html_entity_decode('&nbsp;', ENT_QUOTES, 'UTF-8');
       $lfloor = html_entity_decode('&lfloor;', ENT_QUOTES, 'UTF-8');
       foreach ($structure as $page) {
         $text = ($page['level'] > 0 ? str_repeat($nbsp,5*$page['level']-2).$lfloor.$nbsp : '').cl($page['title']);
-        $link = find_i18n_url($page['url'], $page['parent'], $lang ?: return_i18n_default_language());
-        $pages[] = [$text, $link];
+        $link = find_i18n_url($page['url'], $page['parent'], $lang ? $lang : return_i18n_default_language());
+        $pages[] = array($text, $link);
       }
       return json_encode($pages);
     } else {
@@ -302,7 +302,7 @@ class I18nSpecialPagesBackend {
     if (!$withName) return;
     $def = $toName ? I18nSpecialPages::getSettings($toName) : null;
     // first handle all files without '_', as we need to build a slug update map, if I18N is installed (otherwise it doesn't matter)
-    $updateMap = [];
+    $updateMap = array();
     $dir_handle = @opendir(GSDATAPAGESPATH) or die("Unable to open pages directory");
     while ($filename = readdir($dir_handle)) {
       if (substr($filename,-4) == '.xml' && strrpos($filename,'_') === false && !is_dir(GSDATAPAGESPATH . $filename)) {
@@ -330,11 +330,11 @@ class I18nSpecialPagesBackend {
     }
   }
   
-  private static function updatePageXML($xml, $def, $updateSlug = false, $updateMap = []) {
+  private static function updatePageXML($xml, $def, $updateSlug = false, $updateMap = array()) {
     if (!$def) {
       // special page type is deleted
       unset($xml->special);
-      $tags = [];
+      $tags = array();
       $origtags = @preg_split('/\s*,\s*/', (string) $xml->meta);
       if (count($origtags) > 0) foreach ($origtags as $tag) {
         if ($tag && substr($tag,0,9) != '_special_' && !in_array($tag, $tags)) $tags[] = $tag;

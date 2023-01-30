@@ -19,9 +19,9 @@
   }
   $settings = i18n_specialpages_settings();
   $settings = subval_sort($settings,'title');
-  if (!$settings) $settings = [];
+  if (!$settings) $settings = array();
   $link = 'load.php?id=i18n_specialpages&amp;config';
-  $templates = [];
+  $templates = array();
   $dir_handle = @opendir(GSPLUGINPATH.'i18n_specialpages/templates/');
   if ($dir_handle) {
     while ($filename = readdir($dir_handle)) {
@@ -32,7 +32,7 @@
     }
   }
   $templates = subval_sort($templates,'title');
-  if (!$templates) $templates = [];
+  if (!$templates) $templates = array();
 ?>
   <h3><?php i18n('i18n_specialpages/CONFIG_OVERVIEW_TITLE'); ?></h3>
   <p><?php i18n('i18n_specialpages/CONFIG_OVERVIEW_DESCR'); ?></p>

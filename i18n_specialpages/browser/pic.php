@@ -9,7 +9,7 @@ $infile = preg_replace('/\.+\//', '', $_GET['p']);
 $maxWidth = @$_GET['w'];
 $maxHeight = @$_GET['h'];
 $crop = @$_GET['c'] && $maxWidth && $maxHeight;
-$datadir = substr(__DIR__, 0, strrpos(__DIR__, DIRECTORY_SEPARATOR.'plugins')) . '/data/';
+$datadir = substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR.'plugins')) . '/data/';
 $imagedir = $datadir . 'uploads/';
 if (!$maxWidth && !$maxHeight) {
   $info = @getimagesize($imagedir.$infile);

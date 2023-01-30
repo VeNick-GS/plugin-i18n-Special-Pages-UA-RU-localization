@@ -5,7 +5,7 @@
   if (!$special || !$def) {
     $settings = i18n_specialpages_settings();
     $settings = subval_sort($settings, 'title');
-    if (!$settings) $settings = [];
+    if (!$settings) $settings = array();
     $link = "load.php?id=i18n_specialpages&amp;pages&amp;special=";
 ?>
     <h3><?php i18n('i18n_specialpages/PAGES_TITLE'); ?></h3>
@@ -37,9 +37,9 @@
   global $USR;
   $isi18n = function_exists('i18n_init');
   $deflang = $isi18n ? return_i18n_default_language() : null;
-  $pages = [];
-  $languages = [];
-  $tags = [];
+  $pages = array();
+  $languages = array();
+  $tags = array();
 	$dir_handle = @opendir(GSDATAPAGESPATH) or die("Unable to open pages directory");
 	while ($filename = readdir($dir_handle)) {
     if (substr($filename,-4) == '.xml' && !is_dir(GSDATAPAGESPATH . $filename)) {
@@ -51,9 +51,9 @@
           $lang = substr($data->url,$pos+1);
           if (!in_array($lang,$languages)) $languages[] = $lang;
           if (!isset($pages[$url])) {
-            $pages[$url] = ['url' => $url, 'variants' => [], 'exists' => false, 'title' => '', 'menuOrder' => 99, 'parent' => null];
+            $pages[$url] = array('url' => $url, 'variants' => array(), 'exists' => false, 'title' => '', 'menuOrder' => 99, 'parent' => null);
           }
-          $pages[$url]['variants'][$lang] = [];
+          $pages[$url]['variants'][$lang] = array();
           $pages[$url]['variants'][$lang]['url'] = (string) $data->url;
           $pages[$url]['variants'][$lang]['parent'] = (string) $data->parent;
           $pages[$url]['variants'][$lang]['title'] = (string) $data->title;
@@ -62,7 +62,7 @@
         } else {
           $url = '' . $data->url;
           if (!isset($pages[$url])) {
-            $pages[$url] = ['url' => $url, 'variants' => []];
+            $pages[$url] = array('url' => $url, 'variants' => array());
           }
           $pages[$url]['exists'] = true;
           $pages[$url]['parent'] = (string) $data->parent;
@@ -104,7 +104,7 @@
     }
   }
   $pages = subval_sort($pages,'sort');
-  if (!$pages) $pages = [];
+  if (!$pages) $pages = array();
   $counter = count($pages);
   // display overview
   $link = "load.php?id=i18n_specialpages&amp;pages&amp;special=".$special;
