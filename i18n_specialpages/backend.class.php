@@ -239,17 +239,17 @@ class I18nSpecialPagesBackend {
     if (defined('GSEDITORLANG')) { $EDLANG = GSEDITORLANG; } else { $EDLANG = i18n_r('CKEDITOR_LANG'); }
     if (defined('GSEDITORTOOL')) { $EDTOOL = GSEDITORTOOL; } else { $EDTOOL = 'basic'; }
     if (defined('GSEDITOROPTIONS') && trim(GSEDITOROPTIONS)!="") { $EDOPTIONS = ", ".GSEDITOROPTIONS; } else {  $EDOPTIONS = ''; }
-    if ($EDTOOL == 'advanced') {
-      $toolbar = "
-          ['Bold', 'Italic', 'Underline', 'NumberedList', 'BulletedList', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock', 'Table', 'TextColor', 'BGColor', 'Link', 'Unlink', 'Image', 'RemoveFormat', 'Source'],
-          '/',
-          ['Styles','Format','Font','FontSize']
-      ";
-    } elseif ($EDTOOL == 'basic') {
-      $toolbar = "['Bold', 'Italic', 'Underline', 'NumberedList', 'BulletedList', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock', 'Link', 'Unlink', 'Image', 'RemoveFormat', 'Source']";
-    } else {
-      $toolbar = GSEDITORTOOL;
-    }
+
+    //edit for CE
+    if(isset($EDTOOL)) $EDTOOL = returnJsArray($EDTOOL);
+    if(isset($toolbar)) $toolbar = returnJsArray($toolbar); // handle plugins that corrupt this
+
+    else if(strpos(trim($EDTOOL),'[[')!==0 && strpos(trim($EDTOOL),'[')===0){ $EDTOOL = "[$EDTOOL]"; }
+
+    if(isset($toolbar) && strpos(trim($toolbar),'[[')!==0 && strpos($toolbar,'[')===0){ $toolbar = "[$toolbar]"; }
+    $toolbar = isset($EDTOOL) ? ",toolbar: ".trim($EDTOOL,",") : '';
+    $options = isset($EDOPTIONS) ? ','.trim($EDOPTIONS,",") : '';
+    
     ?>
     <?php echo $editorvar; ?> = CKEDITOR.replace(<?php echo json_encode($fieldname); ?>, {
           skin : 'getsimple',
@@ -264,9 +264,9 @@ class I18nSpecialPagesBackend {
           entities : true,
           uiColor : '#FFFFFF',
           height: '200px',
-          baseHref : '<?php echo $SITEURL; ?>',
-          toolbar : [ <?php echo $toolbar; ?> ]
-          <?php echo $EDOPTIONS; ?>,
+          baseHref : '<?php echo $SITEURL; ?>'
+          <?php echo $toolbar; ?>
+          <?php echo $options; ?>,
           tabSpaces:10,
           filebrowserBrowseUrl : 'filebrowser.php?type=all',
           filebrowserImageBrowseUrl : 'filebrowser.php?type=images',

@@ -363,7 +363,7 @@
       </tbody>
     </table>
     <p>
-      <input type="hidden" id="post-defaultcontent" name="post-defaultcontent" value="<?php echo htmlspecialchars(@$def['defaultcontent']); ?>" />
+      <input type="hidden" id="post-defaultcontent" name="post-defaultcontent" value="<?php echo htmlspecialchars(@$def['defaultcontent']?? ''); ?>" />
       <a class="setcontent" href="#"><?php i18n('i18n_specialpages/SET_DEFAULT_CONTENT'); ?></a>
     </p>
     <div id="ed_textarea" class="dialog" style="display:none">
@@ -383,7 +383,7 @@
     <p><?php i18n('i18n_specialpages/CONFIG_EDIT_VIEW_DESCR'); ?></p>
     <div class="compdiv">
       <label for="post-headercomponent"><?php i18n('i18n_specialpages/HEADERCOMPONENT'); ?></label>
-      <textarea id="post-headercomponent" name="post-headercomponent" style="height:200px;"><?php echo htmlspecialchars(@$def['headercomponent']); ?></textarea>
+      <textarea id="post-headercomponent" name="post-headercomponent" style="height:200px;"><?php echo htmlspecialchars(@$def['headercomponent'] ?? ''); ?></textarea>
     </div>
     <div class="compdiv i18n-sp-comp">
       <?php if ($isi18n && $languages) { ?>
@@ -396,7 +396,7 @@
       <?php } ?>
       <label for="post-showcomponent"><?php i18n('i18n_specialpages/SHOWCOMPONENT'); ?></label>
       <div class="i18n-sp-wrapper" id="showcomponent" style="clear:both;">
-        <textarea id="post-showcomponent" name="post-showcomponent" style="height:200px"><?php echo htmlspecialchars(@$def['showcomponent']); ?></textarea>
+        <textarea id="post-showcomponent" name="post-showcomponent" style="height:200px"><?php echo htmlspecialchars(@$def['showcomponent'] ?? ''); ?></textarea>
       </div>
       <?php if ($isi18n && $languages) foreach ($languages as $lang) { ?>
       <div class="i18n-sp-wrapper" id="showcomponent_<?php echo $lang; ?>" style="clear:both;display:none">
@@ -587,8 +587,8 @@ function i18n_specialpages_confline($i, $def, $class='', $issearch=false) {
   if (substr($options,0,2) == "\r\n") $options = "\r\n".$options; // textarea removes first line break!
 ?>
       <tr class="<?php echo $class; ?>">
-        <td><input type="text" class="text" style="width:80px;padding:2px;" name="cf_<?php echo $i; ?>_name" value="<?php echo htmlspecialchars(@$def['name']); ?>"/></td>
-        <td><input type="text" class="text" style="width:140px;padding:2px;" name="cf_<?php echo $i; ?>_label" value="<?php echo htmlspecialchars(@$def['label']); ?>"/></td>
+        <td><input type="text" class="text" style="width:80px;padding:2px;" name="cf_<?php echo $i; ?>_name" value="<?php echo htmlspecialchars(@$def['name']??''); ?>"/></td>
+        <td><input type="text" class="text" style="width:140px;padding:2px;" name="cf_<?php echo $i; ?>_label" value="<?php echo htmlspecialchars(@$def['label']??''); ?>"/></td>
         <td>
           <select name="cf_<?php echo $i; ?>_type" class="text short" style="width:160px;padding:2px;" >
             <option value="text" <?php echo @$def['type']=='text' ? 'selected="selected"' : ''; ?> ><?php i18n('i18n_specialpages/TEXT_FIELD'); ?></option>
@@ -601,10 +601,10 @@ function i18n_specialpages_confline($i, $def, $class='', $issearch=false) {
             <option value="file" <?php echo @$def['type']=='file' ? 'selected="selected"' : ''; ?> ><?php i18n('i18n_specialpages/FILE'); ?></option>
             <option value="link" <?php echo @$def['type']=='link' ? 'selected="selected"' : ''; ?> ><?php i18n('i18n_specialpages/LINK'); ?></option>
           </select>
-          <textarea class="text" style="width:150px;height:50px;padding:2px;<?php echo !$isdropdown ? 'display:none' : ''; ?>" name="cf_<?php echo $i; ?>_options"><?php echo htmlspecialchars($options); ?></textarea> 
+          <textarea class="text" style="width:150px;height:50px;padding:2px;<?php echo !$isdropdown ? 'display:none' : ''; ?>" name="cf_<?php echo $i; ?>_options"><?php echo htmlspecialchars($options ??''); ?></textarea> 
         </td>
         <td>
-          <input type="text" class="text" style="width:100px;padding:2px;<?php if (@$def['type']=='textarea' || @$def['type']=='wysiwyg') echo 'display:none'; ?>" name="cf_<?php echo $i; ?>_value" value="<?php echo htmlspecialchars(@$def['value']); ?>"/>
+          <input type="text" class="text" style="width:100px;padding:2px;<?php if (@$def['type']=='textarea' || @$def['type']=='wysiwyg') echo 'display:none'; ?>" name="cf_<?php echo $i; ?>_value" value="<?php echo htmlspecialchars(@$def['value']??''); ?>"/>
           <a href="#" class="setvalue" style="<?php if (@$def['type']!='textarea' && @$def['type']!='wysiwyg') echo 'display:none'; ?>"><?php i18n('i18n_specialpages/SET_DEFAULT'); ?></a>
         </td>
 <?php if ($issearch) { ?>
